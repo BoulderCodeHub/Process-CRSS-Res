@@ -1,0 +1,129 @@
+# define the CRSS processing for this month's run
+# note that for list, they need to be same data types, e..g, ints or floats
+---
+process_data: FALSE
+#  sys_cond_data: FALSE
+#  pe_data: TRUE
+#  csd_data: TRUE
+#  crss_short_cond_data: FALSE
+defaults:
+  end_year: 2060
+folders:
+  i_folder: "~/crss/crss.offc2/Scenario"
+  CRSSDIR: "~/crss/crss.offc2"
+  crss_month: "jan2021"
+  pdf_name: 'jan2021.v2.pdf'
+  extra_label: ""
+scenarios:
+  - name: Jan 2021 - DNF IG
+    folder: "`r rw_scen_gen_names('Jan2021_2022,DNF,2016Dems,IG_DCP', paste0('Trace', sprintf('%02d', 4:38)))`"
+    ic: '~/crss/crss.offc2/dmi/InitialConditions/jan_2021/MtomToCrss_Monthly.xlsx'
+    start_year: 2022
+    std_ind_figures:
+      end_year: 2026
+    std_ind_tables: TRUE
+  - name: Jan 2021 - ST IG
+    folder: "`r rw_scen_gen_names('Jan2021_2022,ISM1988_2018,2016Dems,IG_DCP', paste0('Trace', sprintf('%02d', 4:38)))`"
+    ic: '~/crss/crss.offc2/dmi/InitialConditions/jan_2021/MtomToCrss_Monthly.xlsx'
+    start_year: 2022
+    std_ind_figures:
+      end_year: 2026
+    std_ind_tables: TRUE
+  - name: Jan 2021 - DNF IG (MTOM Most)
+    folder: "Jan2021_2022,DNF,2016Dems,IG_DCP,MTOM_Most"
+    ic: {powell: 3560.19, mead: 1069.76}
+    start_year: 2022
+  - name: Jan 2021 - ST IG (MTOM Most)
+    folder: "Jan2021_2022,ISM1988_2018,2016Dems,IG_DCP,MTOM_Most"
+    ic: {powell: 3560.19, mead: 1069.76}
+    start_year: 2022
+  - name: Aug 2020 w/2016 UCRC Demands - DNF IG
+    folder: "FebRedesign4.99,DNF,2016Dems,IG_DCP,MTOM_Most"
+    ic: {powell: 3591.60, mead: 1085.28}
+    start_year: 2021
+  - name: Aug 2020 w/2016 UCRC Demands - ST IG
+    folder: "Jan2021_2021,ISM1988_2018,2016Dems,IG_DCP.4.99.0,MTOM_Most"
+    ic: {powell: 3591.60, mead: 1085.28}
+    start_year: 2021
+  - name: Aug 2020 Offc - DNF IG
+    folder: "Aug2020_2021,DNF,2007Dems,IG_DCP,Most"
+    ic: {powell: 3591.60, mead: 1085.28}
+    start_year: 2021
+  - name: Aug 2020 Offc - ST IG
+    folder: "Aug2020_2021,ISM1988_2018,2007Dems,IG_DCP,Most"
+    ic: {powell: 3591.60, mead: 1085.28}
+    start_year: 2021
+plot_group: 
+    - aug_v_jan_dnf:
+        scenarios: ["Jan 2021 - DNF IG", "Aug 2020 Offc - DNF IG"]
+        plot_colors: ["#F8766d", "#00bfc4"]
+        std_comparison:
+          years: [2021, 2060]
+        csd_ann:
+          years: [2021, 2035]
+    - aug_v_jan_dnf3:
+        scenarios: ["Jan 2021 - DNF IG", "Aug 2020 Offc - DNF IG"]
+        plot_colors: ["#F8766d", "#00bfc4"]
+        std_comparison:
+          years: [2021, 2026]
+        cloud:
+          scen_names: [January 2021, August 2020]
+          title_append: ''
+          years: [2000, 2026]
+    - aug_v_jan_st:
+        scenarios: ["Jan 2021 - ST IG", "Aug 2020 Offc - ST IG"]
+        plot_colors: ['#fc8d62', '#8da0cb']
+        std_comparison:
+          years: [2021, 2060]
+        csd_ann:
+          years: [2021, 2035]
+    - aug_v_jan_st3:
+        scenarios: ["Jan 2021 - ST IG", "Aug 2020 Offc - ST IG"]
+        plot_colors: ['#fc8d62', '#8da0cb']
+        std_comparison:
+          years: [2021, 2026]
+        cloud:
+          scen_names: [January 2021, August 2020]
+          title_append: ''
+          years: [2000, 2026]
+    - jan_dnf:
+        scenarios: ["Jan 2021 - DNF IG", "Jan 2021 - DNF IG (MTOM Most)"]
+        plot_colors: ["#F8766d", "#e06c6c"]
+        std_comparison:
+          years: [2021, 2060]
+        csd_ann:
+          years: [2021, 2035]
+    - jan_st:
+        scenarios: ["Jan 2021 - ST IG", "Jan 2021 - ST IG (MTOM Most)"]
+        plot_colors: ['#fc8d62', '#f8be6d']
+        std_comparison:
+          years: [2021, 2060]
+        csd_ann:
+          years: [2021, 2035]
+    - aug_v_jan_dnf2:
+        scenarios: ["Jan 2021 - DNF IG (MTOM Most)", "Aug 2020 w/2016 UCRC Demands - DNF IG", "Aug 2020 Offc - DNF IG"]
+        plot_colors: ["#e06c6c", "#7cae00", "#00bfc4"]
+        std_comparison:
+          years: [2021, 2060]
+    - aug_v_jan_st2:
+        scenarios: ["Jan 2021 - ST IG (MTOM Most)", "Aug 2020 w/2016 UCRC Demands - ST IG", "Aug 2020 Offc - ST IG"]
+        plot_colors: ['#f8be6d', '#66c2a5', '#8da0cb']
+        std_comparison:
+          years: [2021, 2060]
+    - jan_st_vs_dnf:
+        scenarios: ["Jan 2021 - DNF IG", "Jan 2021 - ST IG"]
+        plot_colors: ['#138d75', '#f1c40f']
+        std_comparison: 
+          years: [2022, 2026]
+        heat:
+          scen_names: [Full Hydrology, Stress Test Hydrology]
+          title: "January 2021 CRSS"
+          years: [2022, 2026]
+        cloud:
+          scen_names: [Full Hydrology, Stress Test Hydrology]
+          title_append: from January 2021 CRSS
+          years: [2000, 2026]
+# can also specify
+# plots:
+#  - std_comparison
+#  - heat

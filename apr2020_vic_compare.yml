@@ -1,0 +1,37 @@
+# define the CRSS processing for this month's run
+# note that for list, they need to be same data types, e..g, ints or floats
+---
+process_data: 
+  sys_cond_data: TRUE
+  pe_data: TRUE
+  csd_data: TRUE
+  crss_short_cond_data: FALSE
+defaults:
+  end_year: 2060
+folders:
+  i_folder: "C:\\Users\\rrbutler\\Documents\\crss\\crss.offc\\Scenario"
+  CRSSDIR: "C:\\Users\\rrbutler\\Documents\\crss\\crss.offc"
+  crss_month: "vic_compare"
+  pdf_name: 'vic_apr2020.pdf'
+  extra_label: ""
+scenarios:
+  - name: "CMIP3 w/evap coeffs"
+    folder: "Apr2020_2021,VIC,2007Dems,IG_DCP,MTOM_Most"
+    ic: {powell: 3610.24, mead: 1084.7}
+    start_year: 2021
+    std_ind_figures: TRUE
+  - name: "CMIP3 no evap coeffs"
+    folder: "Apr2020_2021_9000,VIC,2007Dems,IG_DCP,MTOM_Most"
+    ic: {powell: 3610.24, mead: 1084.7}
+    start_year: 2021
+plot_group: 
+    - comp1:
+        scenarios: ["CMIP3 w/evap coeffs", "CMIP3 no evap coeffs"]
+        std_comparison:
+          years: [2021, 2060]
+        csd_ann:
+          years: [2021, 2040]
+    - comp2:
+        scenarios: ["CMIP3 w/evap coeffs", "CMIP3 no evap coeffs"]
+        csd_ann:
+          years: [2041, 2060]
