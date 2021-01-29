@@ -1,0 +1,201 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={April 2020 CRSS Updates},
+  pdfborder={0 0 0},
+  breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-2}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage[none]{hyphenat}
+
+\title{April 2020 CRSS Updates}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+This document includes all of the changes made to CRSS between the
+``February 2020'' and the ``April 2020'' packages. Files for the model
+and ruleset for these two packages are:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+& April 2020 & February 2020\tabularnewline
+\midrule
+\endhead
+RiverWare & RW v8.0.3 & RW v7.5.2\tabularnewline
+Model & CRSS.V4.5.0.2021.Apr2020.mld &
+CRSS.V4.4.1.2021.Feb2020.mdl\tabularnewline
+Ruleset & CRSS.Baseline.2027{[}IGDCP/NA{]}.v4.4.1.rls &
+CRSS.Baseline.2027{[}IGDCP/NA{]}.v4.4.0.rls\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{changes-that-affect-results}{%
+\subsection{Changes That Affect
+Results}\label{changes-that-affect-results}}
+
+\begin{itemize}
+\tightlist
+\item
+  Mead's live capacity storage
+  (\texttt{UBRuleCurveData.ReservoirData{[}"Mead",\ "liveCapacityStorage"{]}})
+  was set to 27,620,000 acre-ft to match the relatively recent updates
+  to Mead's area-capacity tables. (Mead's elevation-volume tables were
+  previously updated, but this slot was missed in that update.) Updating
+  the Mead live capacity value affects computations in the Mead Flood
+  Control rule. Overall, this affect 30.10 \% of months at Mead, with an
+  average absolute difference of 0.46 ft. When Mead's elevations change,
+  this can have upstream affects on Powell. 11.96 \% of months are
+  affected at Powell with an average absolute difference of 0.14 ft.
+\item
+  \raggedright Navajo's ``liveCapacityStorage'' and
+  ``inactiveCapacityStorage'' were updated on
+  \texttt{UBRuleCurveData.ReservoirData{[}{]}}. Changing Navajo's live
+  capacity affects the computation of the Powell inflow ``forecast''
+  (within CRSS -
+  \texttt{PowellForecastData.Reg\ Inflow\ with\ Error{[}{]}}), which in
+  turn affects all of the EOWY forecasts through changing the total
+  volume computed in \texttt{UBEffectiveStorage()}. Of course changing
+  these EOWY storage forecasts at Powell can affect Powell and Mead
+  elevations. Overall, 52.90 and 55.00 \% of months are affected at
+  Powell and Mead, respectively. There is an average absolute difference
+  of 0.14 and 0.16 feet, respectively.
+\item
+  There was a typo in the
+  ``DIT\_CRSS\_UCRC2007shortageEIS2010\_FINALv4.5.xlsm'' Demand Input
+  Tool in the \texttt{YumaOperations.WelltonMohawkBypassFlows} water
+  user. The typo caused this user to have a decreasing demand from
+  115,992 acre-ft in 2000 to 115,922 acre-ft in 2060; however, we intend
+  to model this as a static value (115,922 acre-ft) computed from the
+  1990-2018 historical average. The typo was fixed, and this causes very
+  minor differences in results as the change in the demand was small (70
+  acre-ft at most). This file is now saved as v4.6.
+\item
+  Parameters in Havasu's power method were modified to match those used
+  in the 24-Month Study and MTOM. This does affect energy projections,
+  but it does not affect reservoir releases or elevations.
+\end{itemize}
+
+\hypertarget{changes-that-do-not-affect-results}{%
+\subsection{Changes That Do Not Affect
+Results}\label{changes-that-do-not-affect-results}}
+
+\hypertarget{model-and-global-functions}{%
+\subsubsection{Model and Global
+Functions}\label{model-and-global-functions}}
+
+\begin{itemize}
+\tightlist
+\item
+  The DMIs used to import ``VIC'' demands (the agricultural and M\&I
+  demands that are scaled based on Global Circulation Model projections
+  of changes in ET) were converted from control file executable style
+  DMIs to trace based DMIs. All other DMIs were previously converted to
+  trace based DMIs which removes the historical dependency on Perl.
+\item
+  All MRM configurations are now set to ``Stop all distributed MRM runs
+  on error''. This new RiverWare feature ensures that if one trace has
+  an error, you will not waste time completing all other traces when you
+  are using Distributed MRM.
+\item
+  The ``Update MRM rulesets'' RiverWare script was added to the model
+  file. This helps us change the ruleset that every MRM configuration
+  uses at once.
+\end{itemize}
+
+\hypertarget{ruleset}{%
+\subsubsection{Ruleset}\label{ruleset}}
+
+In both the IG\_DCP and NA rulesets:
+
+\begin{itemize}
+\tightlist
+\item
+  Moved rule `Set ICS Put and Take Dates' to the lowest priority rule.
+  Rule is now part of a new policy group `Set Operational Dates'. This
+  makes this rule easier to find and indicates that it should be the
+  very first thing to happen in the model run.
+\end{itemize}
+
+\hypertarget{other-files}{%
+\subsubsection{Other Files}\label{other-files}}
+
+\begin{itemize}
+\tightlist
+\item
+  \raggedright A new event (``RWcheck'') has been added to the
+  RiverSMART study file (CRSS\_StudyManager\_Apr2020\_MTOM.rsm). This
+  event will eventually perform many automated checks on CRSS output to
+  check results for errors. It is still in development and testing and
+  we will provide more information on it once it is more complete.
+\end{itemize}
+
+\end{document}
