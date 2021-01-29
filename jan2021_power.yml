@@ -1,0 +1,82 @@
+# define the CRSS processing for this month's run
+# note that for list, they need to be same data types, e..g, ints or floats
+---
+process_data: FALSE
+#  sys_cond_data: TRUE
+#  pe_data: TRUE
+#  csd_data: TRUE
+#  crss_short_cond_data: FALSE
+defaults:
+  end_year: 2060
+folders:
+  i_folder: "M:/Shared/CRSS/2021"
+  CRSSDIR: "~/crss/crss.offc2"
+  crss_month: "jan2021"
+  pdf_name: 'jan2021_mtom_most_check.pdf'
+  extra_label: ""
+scenarios:
+  - name: Jan 2021 - DNF IG (MTOM Most)
+    folder: "Scenario_dev/Jan2021_2022.v4.99.2.9000,DNF,2016Dems,IG_DCP.v4.999.0.9000,MTOM_Most"
+    ic: {powell: 3560.19, mead: 1069.76}
+    start_year: 2022
+    std_ind_figures: TRUE
+    std_ind_tables: TRUE
+  - name: Jan 2021 - ST IG (MTOM Most)
+    folder: "Scenario_dev/Jan2021_2022.v4.99.2.9000,ISM1988_2018,2016Dems,IG_DCP.v4.999.0.9000,MTOM_Most"
+    ic: {powell: 3560.19, mead: 1069.76}
+    start_year: 2022
+    std_ind_figures: TRUE
+    std_ind_tables: TRUE
+  - name: Aug 2020 DEV - DNF IG
+    folder: "Scenario_dev/FebRedesign4.99,DNF,2016Dems,IG_DCP,MTOM_Most"
+    ic: {powell: 3591.60, mead: 1085.28}
+    start_year: 2021
+  - name: Aug 2020 DEV - ST IG
+    folder: "Scenario_dev/Jan2021_2021,ISM1988_2018,2016Dems,IG_DCP.4.99.0,MTOM_Most"
+    ic: {powell: 3591.60, mead: 1085.28}
+    start_year: 2021
+  - name: Aug 2020 Offc - DNF IG
+    folder: "Scenario/Aug2020_2021,DNF,2007Dems,IG_DCP,Most"
+    ic: {powell: 3591.60, mead: 1085.28}
+    start_year: 2021
+  - name: Aug 2020 Offc - ST IG
+    folder: "Scenario/Aug2020_2021,ISM1988_2018,2007Dems,IG_DCP,Most"
+    ic: {powell: 3591.60, mead: 1085.28}
+    start_year: 2021
+plot_group: 
+    - aug_v_jan_dnf:
+        scenarios: ["Jan 2021 - DNF IG (MTOM Most)", "Aug 2020 DEV - DNF IG"]
+        plot_colors: ["#F8766d", "#00bfc4"]
+        std_comparison:
+          years: [2021, 2060]
+        csd_ann:
+          years: [2021, 2035]
+        heat:
+          scen_names: ["Jan", "Aug Dev"]
+          title: "Full Hydrology"
+          years: [2020, 2026]
+    - aug_v_jan_st:
+        scenarios: ["Jan 2021 - ST IG (MTOM Most)", "Aug 2020 DEV - ST IG"]
+        plot_colors: ['#fc8d62', '#8da0cb']
+        std_comparison:
+          years: [2021, 2060]
+        csd_ann:
+          years: [2021, 2035]
+        heat:
+          scen_names: ["Jan", "Aug Dev"]
+          title: "Stress Test"
+          years: [2020, 2026]
+    - aug_v_jan_dnf2:
+        scenarios: ["Jan 2021 - DNF IG (MTOM Most)", "Aug 2020 DEV - DNF IG", "Aug 2020 Offc - DNF IG"]
+        plot_colors: ["#F8766d", "#00bfc4", "#7cae00"]
+        std_comparison:
+          years: [2021, 2060]
+    - aug_v_jan_st2:
+        scenarios: ["Jan 2021 - ST IG (MTOM Most)", "Aug 2020 DEV - ST IG", "Aug 2020 Offc - ST IG"]
+        plot_colors: ['#fc8d62', '#8da0cb', '#66c2a5']
+        std_comparison:
+          years: [2021, 2060]
+# can also specify
+# plots:
+#  - std_comparison
+#  - heat

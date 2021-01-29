@@ -33,7 +33,7 @@ source("code/specify_individual_plots.R")
 source("code/check_ui_update_defaults.R")
 source("code/parse_yaml_input.R")
 
-ui <- parse_yaml_input("test_simple.yml")
+ui <- parse_yaml_input("jan2021.yml")
 
 process_everything(ui)
 
