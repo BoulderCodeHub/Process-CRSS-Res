@@ -3,6 +3,8 @@ library(testthat)
 library(yaml)
 library(RWDataPlyr)
 
+source("parse_yaml_input.R")
+
 ft <- yaml.load_file("test.yml")
 us <- yaml.load_file("test_underspecified.yml")
 
@@ -90,3 +92,4 @@ test_that("eval_r_var() works", {
     df2_comp
   )
 })
+
